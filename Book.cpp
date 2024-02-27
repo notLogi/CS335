@@ -117,6 +117,7 @@ Book &Book::operator=(const Book &rhs) // deep copy
     {
         if(icon_ != nullptr){
             delete[] icon_;
+            icon_ = nullptr;    
         }
         icon_ = new int[80];
         std::copy(icon, icon + 80, icon_);
