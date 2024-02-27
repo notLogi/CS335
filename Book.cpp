@@ -1,11 +1,14 @@
 #include "Book.hpp"
 
     // write and document all methods in this file.
-    Book::Book(){}
+    Book::Book(): title_(""), author_(""), ISBN_(0), icon_(nullptr), price_(0.0), blurb_(""){}
 
     Book::~Book()
     {
-        delete icon_;
+        if(this->icon_ != nullptr){
+            delete[] this->icon_;
+            this->icon_ = nullptr;
+        }
     }
 
     Book::Book(const Book& rhs)
@@ -13,7 +16,14 @@
         this->author_ = rhs.title_;
         this->author_ = rhs.author_;
         this->ISBN_ = rhs.ISBN_;
-        this->icon_ = rhs.icon_;
+        if(icon_ == nullptr){
+            this->icon_ = new int[80];
+        }
+        else{
+            for(int i = 0; i < 80; i++){
+                this->icon_[i] = rhs.icon_[i];
+            }
+        }
         this->price_ = rhs.price_;
         this->keywords_ = rhs.keywords_;
         this->blurb_ = rhs.blurb_;
@@ -27,7 +37,12 @@
             this->title_ = rhs.title_;
             this->author_ = rhs.author_;
             this->ISBN_ = rhs.ISBN_;
-            this->icon_ = rhs.icon_;
+            if(this->icon_ == nullptr){
+                this->icon_ = new int[80];
+            }
+            for(int i = 0; i < 80; i++){
+                this->icon_[i] = rhs.icon_[i];
+            }
             this->price_ = rhs.price_;
             this->keywords_ = rhs.keywords_;
             this->blurb_ = rhs.blurb_;
@@ -40,6 +55,7 @@
         this->author_ = std::move(rhs.author_);
         this->ISBN_ = std::move(rhs.ISBN_);
         this->icon_ = std::move(rhs.icon_);
+        rhs.icon_ = nullptr;
         this->price_ = std::move(rhs.price_);
         this->keywords_ = std::move(rhs.keywords_);
         this->blurb_ = std::move(rhs.blurb_);
@@ -53,7 +69,9 @@
         this->title_ = std::move(rhs.title_);
         this->author_ = std::move(rhs.author_);
         this->ISBN_ = std::move(rhs.ISBN_);
+        delete[] icon_;
         this->icon_ = std::move(rhs.icon_);
+        rhs.icon_ = nullptr;
         this->price_ = std::move(rhs.price_);
         this->keywords_ = std::move(rhs.keywords_);
         this->blurb_ = std::move(rhs.blurb_);
@@ -144,8 +162,12 @@
                 }
             }  
         }
-        std::cout << "Title: " << getTitle() << std::endl << "Author: " << 
-        getAuthor() << std::endl << "ISBN: " << getISBN() << std::endl
-        << "Icon: " << getIcon() << std::endl << "Price: " << getPrice() << std::endl
-        << "Keywords: " << keyword << std::endl << "Blurb: " << getBlurb() << "\n\n";
+        std::cout << "Title: " << title_ << std::endl << "Author: " << 
+        author_ << std::endl << "ISBN: " << ISBN_ << std::endl
+        << "Icon: ";
+        for(int i = 0; i < 80; i++){
+            std::cout <<icon_[i] << " ";
+        }
+        std::cout << std::endl << "Price: $" << std::fixed << std::setprecision(2) << price_ << std::endl
+        << "Keywords: " << keyword << std::endl << "Blurb: " << blurb_ << "\n\n";
     }
