@@ -10,9 +10,9 @@ void moveAll (const std::string keyword, std::vector<Book> &source, std::vector<
   const auto t1_start = std::chrono::steady_clock::now();
   int books_moved=0; // counts books moved
   // DO NOT ALTER ABOVE HERE
-  bool dummy = false;
   for(auto it = source.begin(); it != source.end();){
     const auto &book = *it;
+    bool dummy = false;
     for(const auto &key : book.getKeywords()){
       if(key == keyword){
         dummy = true;

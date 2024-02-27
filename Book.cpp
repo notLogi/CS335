@@ -67,13 +67,14 @@ Book &Book::operator=(const Book &rhs) // deep copy
     Book& Book::operator=(Book&& rhs)//swapping the rvalues to this.
     {
         if(this != &rhs){
-            std::swap(title_, rhs.title_);
-            std::swap(author_, rhs.author_);
-            std::swap(ISBN_, rhs.ISBN_);
-            std::swap(icon_, rhs.icon_);
-            std::swap(price_, rhs.price_);
-            keywords_.swap(rhs.keywords_);
-            std::swap(blurb_, rhs.blurb_);
+            title_ = std::move(rhs.title_);
+            author_ = std::move(rhs.author_);
+            ISBN_ = std::move(rhs.ISBN_);
+            icon_ = std::move(rhs.icon_);
+            rhs.icon_ = nullptr;
+            price_ = std::move(rhs.price_);
+            keywords_ = std::move(rhs.keywords_);
+            blurb_ = std::move(rhs.blurb_);
         }
         return *this;
     }
@@ -162,12 +163,12 @@ Book &Book::operator=(const Book &rhs) // deep copy
                 keyword += ", ";
             }
         }
-        std::cout << "Title: " << title_ << std::endl << "Author: " << 
-        author_ << std::endl << "ISBN: " << ISBN_ << std::endl
+        std::cout << "Title: " << getTitle() << std::endl << "Author: " << 
+        getAuthor() << std::endl << "ISBN: " << getISBN() << std::endl
         << "Icon: ";
         for(int i = 0; i < 80; i++){
             std::cout << icon_[i] << " ";
         }
-        std::cout <<"\nPrice: $" << std::fixed << std::setprecision(2) << price_ << std::endl
-        << "Keywords: " << keyword << std::endl << "Blurb: " << blurb_ << "\n\n";
+        std::cout <<"\nPrice: $" << std::fixed << std::setprecision(2) << getPrice() << std::endl
+        << "Keywords: " << keyword << std::endl << "Blurb: " << getBlurb() << "\n\n";
     }

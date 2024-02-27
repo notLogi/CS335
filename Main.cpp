@@ -110,9 +110,9 @@ int main(){
   }
 
   // write your test cases here
-  //for(const auto &book : catalog){
-   // book.print();
-  //}
+  for(const auto &book : catalog){
+    book.print();
+  }
   std::string keyword = "Romanian Literature";
   moveAll(keyword,catalog,cart);
   return 0;
