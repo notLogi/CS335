@@ -14,8 +14,8 @@
     Book::Book(const Book& rhs):title_(rhs.title_), author_(rhs.author_), ISBN_(rhs.ISBN_), price_(rhs.price_),blurb_(rhs.blurb_)//copy constructor
     {
         if(rhs.icon_ != nullptr){
-            icon_ = new int[80];
-            std::copy(rhs.icon_, rhs.icon_ + 80, icon_);
+            icon_ = new int[80];//allocate memory
+            std::copy(rhs.icon_, rhs.icon_ + 80, icon_);//use std::copy instead of a for loop.
         }
         else{
             icon_ = nullptr;
@@ -40,8 +40,8 @@ Book &Book::operator=(const Book &rhs) // deep copy
 
         if (rhs.icon_ != nullptr)
         {
-            icon_ = new int[80];
-            std::copy(rhs.icon_, rhs.icon_ + 80, icon_);
+            icon_ = new int[80];//allocate memory for icon.
+            std::copy(rhs.icon_, rhs.icon_ + 80, icon_);//use std::copy instead of a for loop.
         }
         else
         {
@@ -120,8 +120,8 @@ Book &Book::operator=(const Book &rhs) // deep copy
             delete[] icon_;
             icon_ = nullptr;    
         }
-        icon_ = new int[80];
-        std::copy(icon, icon + 80, icon_);
+        icon_ = new int[80];//allocate memory for icon.
+        std::copy(icon, icon + 80, icon_);//instead of using a for loop, just use std::copy
     }
 
     float Book::getPrice() const

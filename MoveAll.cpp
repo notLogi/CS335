@@ -1,3 +1,4 @@
+
 #include "MoveAll.hpp"
 #include "Book.hpp"
 
@@ -10,22 +11,22 @@ void moveAll (const std::string keyword, std::vector<Book> &source, std::vector<
   const auto t1_start = std::chrono::steady_clock::now();
   int books_moved=0; // counts books moved
   // DO NOT ALTER ABOVE HERE
-  for(auto it = source.begin(); it != source.end();){
-    const auto &book = *it;
+  std::vector<Book>::iterator it;//an iterator
+  for(it = source.begin(); it != source.end();){
+    const auto &book = *it;//i made a reference instead of a copy since it is "expensive"
     bool dummy = false;
     for(const auto &key : book.getKeywords()){
       if(key == keyword){
         dummy = true;
-        break;
         }
       }
-      if(dummy){
+      if(dummy){//if true, turns the object it is "pointing" to to a rvalue then pushes.
         dest.push_back(std::move(*it));
           it = source.erase(it);
           books_moved++;
       }
-      else{
-        it++;
+      else{//if false, pre-increment it by 1 because it goes back to the last element
+        ++it;
       }
     }
   
